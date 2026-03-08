@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RocketBudget - Financial Travel Planner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00d4ff",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0f2023",
+                        "accent-blue": "#1a3a41",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.75rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .glass {
+            background: rgba(26, 58, 65, 0.25);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .neon-glow {
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+        }
+        .progress-glow {
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes wave {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .liquid-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        .liquid-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: wave 2s infinite;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col overflow-x-hidden">
+<header class="flex items-center p-4 justify-between sticky top-0 z-50 glass">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full border-2 border-primary/50 overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Close up portrait of a smiling young traveler" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoiirvG9Dl6-fm8H1wdFi6Ww7tc5V38J6YjxTODGMQzf9v7rZqIYSon5xpKUUIyWiadZ5nZV47MbN-9P4LulPl7Qs9bfPqOdgIpIJMeYovP1IpQE73uxlQ4M7rpiER_jd5sWCA1-h8KxZmOaaGE0K2plzekV2ms6jnuBkmdhBYS7P4Bzeh_x4Fbrr8sasCcX-v4JOZ6eJoyPAiXBNunRq2DWeNtwIsNItE2M65si_TlN2ExTKHA2gxsor-iOJf3pajGJR7DAyVreeP"/>
+</div>
+<div>
+<h1 class="text-sm text-slate-400 font-medium">Welcome back,</h1>
+<h2 class="text-slate-100 text-lg font-bold leading-none">Traveler!</h2>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-full size-10 bg-primary/10 text-primary transition-colors hover:bg-primary/20">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<main class="flex-1 p-4 space-y-6 pb-24">
+<div class="relative w-full aspect-square max-w-sm mx-auto flex items-center justify-center rounded-xl overflow-hidden bg-gradient-to-b from-primary/5 to-transparent">
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+<div class="absolute top-10 left-10 w-2 h-2 bg-white rounded-full"></div>
+<div class="absolute top-20 right-20 w-1 h-1 bg-white rounded-full"></div>
+<div class="absolute bottom-40 left-1/4 w-1.5 h-1.5 bg-white rounded-full"></div>
+</div>
+<div class="relative z-10 flex flex-col items-center animate-float">
+<img alt="Rocket Mascot" class="w-48 h-48 object-contain drop-shadow-[0_0_30px_rgba(0,212,255,0.4)]" data-alt="3D stylized toy rocket launching with glowing exhaust" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkxh7Dy-O_VBUbP6uAQQfCYUQBsR6c3lmwWaFlXXnQ616on8DmBNirVrK_rTJPZaoUzFZB3jrNSsE3N3kFC4fPB_NToHsZM54iLH8enns7tQJuQFvYNJWAfTD4YgNoM99OHfQIYPaBsAA9edeKeCbXe_AxkJQHwL1VqKExPGnJ2NWYQLqhokQJZWdZqE0uyn8oYyMsbaXO5wvVXipvfYf7J8eYJJIL6mjzbrRrBjXO11yIk9h6zR1ij2v5akfexikskAtVJFcbKk1o"/>
+<div class="mt-4 px-4 py-1 rounded-full bg-primary/20 border border-primary/30 text-primary text-xs font-bold tracking-widest uppercase">
+                    Launchpad Active
+                </div>
+</div>
+</div>
+<div class="glass p-5 rounded-xl space-y-4">
+<div class="flex justify-between items-end">
+<div>
+<h3 class="text-slate-400 text-sm font-medium">Fuel Tank Progress</h3>
+<p class="text-slate-100 text-2xl font-bold">$4,250 <span class="text-slate-500 text-sm font-normal">/ $12,000</span></p>
+</div>
+<div class="text-right">
+<p class="text-primary text-lg font-bold">35%</p>
+</div>
+</div>
+<div class="relative h-4 w-full bg-slate-800 rounded-full overflow-hidden border border-slate-700">
+<div class="absolute top-0 left-0 h-full bg-primary rounded-full progress-glow transition-all duration-1000 liquid-effect" style="width: 35%;">
+<div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+</div>
+</div>
+<p class="text-slate-400 text-xs text-center italic">"Keep fueling! We're gaining escape velocity." — Astro</p>
+</div>
+<div class="grid grid-cols-4 gap-3 text-center">
+<div class="glass p-3 rounded-lg flex flex-col items-center justify-center">
+<span class="text-primary text-xl font-bold">120</span>
+<span class="text-[10px] text-slate-400 uppercase tracking-tighter font-medium">Days</span>
+</div>
+<div class="glass p-3 rounded-lg flex flex-col items-center justify-center">
+<span class="text-slate-100 text-xl font-bold">00</span>
+<span class="text-[10px] text-slate-400 uppercase tracking-tighter font-medium">Hrs</span>
+</div>
+<div class="glass p-3 rounded-lg flex flex-col items-center justify-center">
+<span class="text-slate-100 text-xl font-bold">00</span>
+<span class="text-[10px] text-slate-400 uppercase tracking-tighter font-medium">Min</span>
+</div>
+<div class="glass p-3 rounded-lg flex flex-col items-center justify-center">
+<span class="text-slate-100 text-xl font-bold">00</span>
+<span class="text-[10px] text-slate-400 uppercase tracking-tighter font-medium">Sec</span>
+</div>
+<div class="col-span-4 mt-1">
+<p class="text-slate-300 text-sm font-medium">Remaining until <span class="text-primary font-bold">Canada</span> 🇨🇦</p>
+</div>
+</div>
+<div class="glass p-5 rounded-xl relative overflow-hidden">
+<div class="absolute -right-4 -top-4 opacity-10">
+<span class="material-symbols-outlined text-8xl text-primary">currency_exchange</span>
+</div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-slate-400 text-sm font-medium">Exchange Rate</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-slate-100 text-lg font-bold">1 BRL</span>
+<span class="material-symbols-outlined text-primary text-sm">arrow_forward</span>
+<span class="text-slate-100 text-lg font-bold">0.25 CAD</span>
+</div>
+</div>
+<span class="text-[10px] bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full border border-green-500/30">LATEST</span>
+</div>
+<div class="flex items-center gap-4 bg-primary/10 border border-primary/20 p-3 rounded-lg">
+<div class="size-10 rounded-full bg-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-background-dark">smart_toy</span>
+</div>
+<div class="flex-1">
+<p class="text-xs text-slate-200 leading-snug">"Rates are looking stable today! Want to <span class="text-primary font-bold">Buy now?</span>"</p>
+</div>
+<button class="bg-primary text-background-dark px-3 py-1.5 rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">
+                    BUY
+                </button>
+</div>
+</div>
+</main>
+<button class="fixed bottom-24 right-6 size-14 bg-primary text-background-dark rounded-full shadow-lg shadow-primary/20 neon-glow flex items-center justify-center transition-transform hover:scale-105 active:scale-95 z-40">
+<span class="material-symbols-outlined text-3xl font-bold">add</span>
+</button>
+<nav class="fixed bottom-0 left-0 right-0 glass border-t border-primary/10 pb-6 pt-3 px-4 z-50">
+<div class="flex justify-around items-center max-w-md mx-auto">
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1">home</span>
+<span class="text-[10px] font-bold text-primary">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">track_changes</span>
+<span class="text-[10px] font-bold text-slate-400 group-hover:text-primary transition-colors">Radar</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">history</span>
+<span class="text-[10px] font-bold text-slate-400 group-hover:text-primary transition-colors">History</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">settings</span>
+<span class="text-[10px] font-bold text-slate-400 group-hover:text-primary transition-colors">Settings</span>
+</a>
+</div>
+</nav>
+</body></html>

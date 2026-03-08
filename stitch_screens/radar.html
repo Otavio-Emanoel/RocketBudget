@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RocketBudget - Radar</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00d4ff",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0f2023",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(23, 48, 54, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+        }
+        .neon-glow {
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen pb-24">
+<!-- Header -->
+<header class="sticky top-0 z-50 glass-panel px-4 py-4 flex items-center justify-between border-b border-primary/10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl">rocket_launch</span>
+<h1 class="text-xl font-bold tracking-tight">Radar</h1>
+</div>
+<div class="flex gap-3">
+<button class="p-2 rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<main class="max-w-md mx-auto px-4 pt-6 space-y-6">
+<!-- Astro Mascot Section -->
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary/20 to-transparent p-6 border border-primary/20">
+<div class="flex items-center gap-4">
+<div class="w-24 h-24 flex-shrink-0 bg-center bg-no-repeat bg-contain" data-alt="3D cartoon astronaut holding a high-tech radar dish" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAopKwfZ51MibVLm6qq43FE9Murp76WHwbv96Tqo22AlGnmCEbhRin4YWI2W91Yf19zyZGkqRRZX9Zd8VJ9GwywPat82wJjLAo047xW-9L6IYOi7AZt79WU2H2XwC4M9xcuqtsWa8hGewfO_a3AbHJKpo0RVEEdBqMbrqSjKRDdtk12F12ICIPgK5um5ct8g1RXm19Mbv4JbV-Nq3d9fJhCVWKhOo4J3-MFIicoTo_A6bOcse3KBwdJIvhYohKv3bmyHcuSYJ-tlYuZ');">
+</div>
+<div>
+<h2 class="text-lg font-bold text-primary">Astro's Scan</h2>
+<p class="text-sm text-slate-400">Scanning global markets for the best CAD/USD entry points.</p>
+</div>
+</div>
+</div>
+<!-- Interactive Currency Chart -->
+<div class="glass-panel rounded-xl p-5 border border-primary/20">
+<div class="flex justify-between items-start mb-6">
+<div>
+<p class="text-xs font-medium text-slate-400 uppercase tracking-wider">CAD / USD</p>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold">0.7428</span>
+<span class="text-green-400 text-sm font-medium flex items-center">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                            1.2%
+                        </span>
+</div>
+</div>
+<div class="flex bg-background-dark/50 rounded-lg p-1">
+<button class="px-3 py-1 text-xs font-medium rounded bg-primary text-background-dark">7D</button>
+<button class="px-3 py-1 text-xs font-medium text-slate-400">1M</button>
+<button class="px-3 py-1 text-xs font-medium text-slate-400">1Y</button>
+</div>
+</div>
+<!-- Chart Visualization -->
+<div class="h-48 w-full relative">
+<svg class="w-full h-full" viewbox="0 0 400 150">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#00d4ff" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#00d4ff" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,100 Q50,80 100,90 T200,60 T300,40 T400,20 L400,150 L0,150 Z" fill="url(#chartGradient)"></path>
+<path d="M0,100 Q50,80 100,90 T200,60 T300,40 T400,20" fill="none" stroke="#00d4ff" stroke-linecap="round" stroke-width="3"></path>
+<!-- Current Price Point -->
+<circle class="neon-glow" cx="400" cy="20" fill="#00d4ff" r="4"></circle>
+</svg>
+<div class="flex justify-between mt-4 text-[10px] font-medium text-slate-500 uppercase">
+<span>Mon</span>
+<span>Tue</span>
+<span>Wed</span>
+<span>Thu</span>
+<span>Fri</span>
+<span>Sat</span>
+<span>Sun</span>
+</div>
+</div>
+</div>
+<!-- Price Alert Setup -->
+<div class="glass-panel rounded-xl p-5 border border-primary/20">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">notifications_active</span>
+<h3 class="font-bold">Set Price Alert</h3>
+</div>
+<div class="space-y-4">
+<div>
+<label class="text-xs text-slate-400 mb-1 block">Target Rate (USD per 1 CAD)</label>
+<div class="relative">
+<input class="w-full bg-background-dark border border-primary/20 rounded-lg py-3 px-4 text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" placeholder="0.7500" step="0.0001" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-primary font-bold">USD</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 bg-primary/5 rounded-lg border border-primary/10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">vibration</span>
+<span class="text-sm">Push Notification</span>
+</div>
+<div class="relative inline-block w-10 h-6">
+<input checked="" class="peer appearance-none w-10 h-6 rounded-full bg-slate-700 checked:bg-primary transition-colors cursor-pointer" type="checkbox"/>
+<span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-4 pointer-events-none"></span>
+</div>
+</div>
+<button class="w-full bg-primary text-background-dark font-bold py-3 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add_alert</span>
+                    Activate Alert
+                </button>
+</div>
+</div>
+<!-- Market Sentiment Card -->
+<div class="flex gap-4">
+<div class="flex-1 glass-panel p-4 rounded-xl border border-primary/10 text-center">
+<p class="text-[10px] text-slate-400 uppercase font-bold mb-1">Sentiment</p>
+<p class="text-green-400 font-bold">Bullish</p>
+</div>
+<div class="flex-1 glass-panel p-4 rounded-xl border border-primary/10 text-center">
+<p class="text-[10px] text-slate-400 uppercase font-bold mb-1">Volatility</p>
+<p class="text-primary font-bold">Medium</p>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 glass-panel border-t border-primary/20 px-6 py-3 flex justify-between items-center z-50">
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-medium">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined fill-1">target</span>
+<span class="text-[10px] font-bold">Radar</span>
+</a>
+<div class="relative -top-6">
+<button class="bg-primary text-background-dark w-14 h-14 rounded-full flex items-center justify-center shadow-lg shadow-primary/20 neon-glow">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="text-[10px] font-medium">Vault</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</a>
+</nav>
+</body></html>
