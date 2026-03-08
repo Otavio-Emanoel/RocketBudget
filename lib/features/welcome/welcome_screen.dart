@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../core/theme/app_colors.dart';
+import '../onboarding/onboarding_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -11,192 +12,248 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundDark,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Header with Astro Avatar
-                Center(
-                  child: Container(
-                    width: 120,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: AppColors.primaryGradient,
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.purple.withOpacity(0.4),
-                          blurRadius: 30,
-                          spreadRadius: 5,
-                        )
+      body: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [AppColors.backgroundDark, Color(0xFF1a3a41), AppColors.backgroundDark],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Spacer for top
+              const SizedBox(height: 20),
+              
+              // App Bar / Header
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(Icons.rocket_launch_rounded, color: AppColors.neonBlue),
+                        const SizedBox(width: 8),
+                        Text(
+                          'RocketBudget',
+                          style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.smart_toy_rounded,
-                        size: 60,
-                        color: Colors.white,
+                    Container(
+                      padding: const EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.1),
+                        shape: BoxShape.circle,
                       ),
+                      child: const Icon(Icons.question_mark_rounded, color: Colors.white70, size: 16),
                     ),
-                  )
-                      .animate()
-                      .scale(duration: 600.ms, curve: Curves.easeOutBack)
-                      .then()
-                      .animate(onPlay: (c) => c.repeat(reverse: true))
-                      .moveY(begin: -5, end: 5, duration: 2.seconds),
+                  ],
                 ),
-                const SizedBox(height: 32),
+              ).animate().fadeIn(duration: 800.ms),
 
-                // Greeting Texts
-                Text(
-                  'Olá! Eu sou o Astro 🚀',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.inter(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w800,
-                    color: AppColors.textPrimary,
-                  ),
-                ).animate().fadeIn(delay: 300.ms).slideY(begin: 0.2),
-                
-                const SizedBox(height: 12),
-                
-                Text(
-                  'Criado por Antigravity (IA)',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.inter(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.neonBlue,
-                    letterSpacing: 1.1,
-                  ),
-                ).animate().fadeIn(delay: 500.ms),
-
-                const SizedBox(height: 24),
-
-                Text(
-                  'Serei seu co-piloto e grande parceiro na sua próxima jornada internacional. Vou te ajudar a economizar com gamificação, inteligência e muito estilo!',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.inter(
-                    fontSize: 16,
-                    height: 1.5,
-                    color: AppColors.textSecondary,
-                  ),
-                ).animate().fadeIn(delay: 700.ms),
-
-                const SizedBox(height: 48),
-
-                // Features List
-                _buildFeatureItem(
-                  icon: Icons.auto_awesome_rounded,
-                  title: 'Clareza Absoluta',
-                  description: 'Entenda seu progresso rapidamente.',
-                  delay: 900,
-                ),
-                _buildFeatureItem(
-                  icon: Icons.rocket_launch_rounded,
-                  title: 'Motivação Diária',
-                  description: 'Encha o tanque e veja seu dinheiro te levar mais longe.',
-                  delay: 1100,
-                ),
-                _buildFeatureItem(
-                  icon: Icons.palette_rounded,
-                  title: 'Estética Premium',
-                  description: 'Animações fluidas em uma interface dark moderna.',
-                  delay: 1300,
-                ),
-
-                const SizedBox(height: 50),
-
-                // Button
-                ElevatedButton(
-                  onPressed: () {
-                    // TODO: Navigate to Setup Journey
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.neonBlue,
-                    foregroundColor: AppColors.backgroundDark,
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    elevation: 10,
-                    shadowColor: AppColors.neonBlue.withOpacity(0.5),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+              // Central Image Area
+              Expanded(
+                child: Center(
+                  child: Stack(
+                    alignment: Alignment.center,
                     children: [
-                      Text(
-                        'Iniciar Jornada',
-                        style: GoogleFonts.inter(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w800,
+                      // Glow
+                      Container(
+                        width: 250,
+                        height: 250,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.neonBlue.withOpacity(0.1),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.neonBlue.withOpacity(0.2),
+                              blurRadius: 60,
+                              spreadRadius: 20,
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(width: 8),
-                      const Icon(Icons.arrow_forward_rounded),
+                      // Square Card Effect behind Astronaut
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Container(
+                          width: 280,
+                          height: 280,
+                          color: Colors.black.withOpacity(0.3),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/images/astro_3d.png',
+                                width: 220,
+                                height: 220,
+                                fit: BoxFit.contain,
+                              )
+                                  .animate(onPlay: (c) => c.repeat(reverse: true))
+                                  .moveY(begin: -8, end: 8, duration: 3.seconds, curve: Curves.easeInOut),
+                            ],
+                          ),
+                        ),
+                      ).animate().scale(duration: 800.ms, curve: Curves.easeOutBack),
+                      
+                      // Decorative side ring
+                      Positioned(
+                        right: -40,
+                        child: Icon(
+                          Icons.radar,
+                          size: 150,
+                          color: AppColors.neonBlue.withOpacity(0.1),
+                        ),
+                      )
                     ],
                   ),
-                )
-                    .animate()
-                    .fadeIn(delay: 1600.ms)
-                    .scale(delay: 1600.ms, curve: Curves.easeOutBack),
-              ],
-            ),
+                ),
+              ),
+
+              // Bottom Texts and Button
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+                child: Column(
+                  children: [
+                    Text(
+                      'Sua Jornada',
+                      style: GoogleFonts.inter(
+                        fontSize: 36,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                        letterSpacing: -1,
+                      ),
+                    ).animate().fadeIn(delay: 300.ms).slideY(begin: 0.2),
+                    Text(
+                      'Começa Aqui',
+                      style: GoogleFonts.inter(
+                        fontSize: 36,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.neonBlue,
+                        letterSpacing: -1,
+                        shadows: [
+                          BoxShadow(
+                            color: AppColors.neonBlue.withOpacity(0.5),
+                            blurRadius: 20,
+                          )
+                        ]
+                      ),
+                    ).animate().fadeIn(delay: 500.ms).slideY(begin: 0.2),
+                    
+                    const SizedBox(height: 16),
+                    
+                    Text(
+                      'Transforme seu sonho de intercâmbio em realidade com economia inteligente e gamificada.',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.inter(
+                        fontSize: 16,
+                        color: const Color(0xFF94a3b8),
+                        height: 1.5,
+                      ),
+                    ).animate().fadeIn(delay: 700.ms),
+                    
+                    const SizedBox(height: 48),
+
+                    // Começar Button
+                    Container(
+                      width: double.infinity,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.neonBlue.withOpacity(0.4),
+                            blurRadius: 20,
+                            offset: const Offset(0, 5),
+                          )
+                        ],
+                      ),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            PageRouteBuilder(
+                              transitionDuration: const Duration(milliseconds: 500),
+                              pageBuilder: (_, __, ___) => const OnboardingScreen(),
+                              transitionsBuilder: (_, animation, __, child) {
+                                return SlideTransition(
+                                  position: Tween<Offset>(
+                                    begin: const Offset(1.0, 0.0),
+                                    end: Offset.zero,
+                                  ).animate(CurvedAnimation(
+                                    parent: animation,
+                                    curve: Curves.easeOutCubic,
+                                  )),
+                                  child: child,
+                                );
+                              },
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.neonBlue,
+                          foregroundColor: AppColors.backgroundDark,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          elevation: 0,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Começar Configuração',
+                              style: GoogleFonts.inter(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            const Icon(Icons.arrow_forward_rounded),
+                          ],
+                        ),
+                      ),
+                    ).animate().fadeIn(delay: 900.ms).scale(curve: Curves.easeOutBack),
+                    
+                    const SizedBox(height: 24),
+                    
+                    Text(
+                      'Leva apenas 2 minutos para decolar',
+                      style: GoogleFonts.inter(
+                        color: const Color(0xFF64748b),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ).animate().fadeIn(delay: 1100.ms),
+                    
+                    const SizedBox(height: 24),
+                    
+                    // Small indicators
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(width: 30, height: 4, decoration: BoxDecoration(color: AppColors.neonBlue, borderRadius: BorderRadius.circular(2))),
+                        const SizedBox(width: 6),
+                        Container(width: 8, height: 4, decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(2))),
+                        const SizedBox(width: 6),
+                        Container(width: 8, height: 4, decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(2))),
+                      ],
+                    ).animate().fadeIn(delay: 1200.ms),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildFeatureItem({
-    required IconData icon,
-    required String title,
-    required String description,
-    required int delay,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: AppColors.cardDark,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: AppColors.neonBlue.withOpacity(0.2)),
-            ),
-            child: Icon(icon, color: AppColors.neonBlue, size: 28),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: GoogleFonts.inter(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  description,
-                  style: GoogleFonts.inter(
-                    fontSize: 14,
-                    color: AppColors.textSecondary,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ).animate().fadeIn(delay: delay.ms).slideX(begin: 0.1),
     );
   }
 }
