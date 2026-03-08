@@ -3,8 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../welcome/welcome_screen.dart';
+import '../main/main_layout_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -22,12 +24,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _navigateToWelcome() async {
     // Simulate loading time (e.g. 5 seconds for full progress effect)
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 4));
+    
+    final prefs = await SharedPreferences.getInstance();
+    final bool completedOnboarding = prefs.getBool('onboarding_completed') ?? false;
+
     if (!mounted) return;
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 1000),
-        pageBuilder: (_, __, ___) => const WelcomeScreen(),
+        pageBuilder: (_, __, ___) => completedOnboarding ? const MainLayoutScreen() : const WelcomeScreen(),
         transitionsBuilder: (_, animation, __, child) {
           return FadeTransition(opacity: animation, child: child);
         },

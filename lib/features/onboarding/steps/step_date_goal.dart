@@ -90,9 +90,10 @@ class _StepDateGoalState extends State<StepDateGoal> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
           Text(
             'Quando será a sua\ndecolagem?',
             style: GoogleFonts.inter(
@@ -209,7 +210,7 @@ class _StepDateGoalState extends State<StepDateGoal> {
             ],
           ).animate().fadeIn(delay: 700.ms),
 
-          const Spacer(),
+          const SizedBox(height: 32),
 
           // Projection Card
           Container(
@@ -293,6 +294,7 @@ class _StepDateGoalState extends State<StepDateGoal> {
             ),
           ).animate().fadeIn(delay: 1000.ms),
         ],
+      ),
       ),
     );
   }

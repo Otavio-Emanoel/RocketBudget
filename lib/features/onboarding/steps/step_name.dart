@@ -39,12 +39,12 @@ class _StepNameState extends State<StepName> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // Graphic / Mascot
-          Expanded(
-            child: Center(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Graphic / Mascot
+            Center(
               child: Container(
                 width: 250,
                 height: 250,
@@ -55,9 +55,8 @@ class _StepNameState extends State<StepName> {
                 ).animate(onPlay: (c) => c.repeat(reverse: true)).moveY(begin: -5, end: 5, duration: 2.seconds),
               ),
             ),
-          ),
-          
-          const SizedBox(height: 24),
+            
+            const SizedBox(height: 24),
 
           // Titles
           Text(
@@ -196,6 +195,7 @@ class _StepNameState extends State<StepName> {
           
           const SizedBox(height: 16),
         ],
+      ),
       ),
     );
   }

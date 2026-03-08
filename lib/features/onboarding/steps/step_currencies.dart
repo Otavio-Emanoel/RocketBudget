@@ -53,9 +53,10 @@ class _StepCurrenciesState extends State<StepCurrencies> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
           // Radar Icon
           Center(
             child: Container(
@@ -101,15 +102,15 @@ class _StepCurrenciesState extends State<StepCurrencies> {
           const SizedBox(height: 32),
 
           // Grid of Currencies
-          Expanded(
-            child: GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 1.2,
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
-              ),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 1.2,
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 16,
+            ),
               itemCount: _currencies.length,
               itemBuilder: (context, index) {
                 final curr = _currencies[index];
@@ -189,7 +190,6 @@ class _StepCurrenciesState extends State<StepCurrencies> {
                 );
               },
             ),
-          ),
 
           // Radar Notification Info Card
           Container(
@@ -266,6 +266,7 @@ class _StepCurrenciesState extends State<StepCurrencies> {
             ),
           ).animate().fadeIn(delay: 1100.ms),
         ],
+      ),
       ),
     );
   }

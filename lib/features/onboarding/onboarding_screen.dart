@@ -7,6 +7,7 @@ import 'steps/step_date_goal.dart';
 import 'steps/step_destination.dart';
 import 'steps/step_name.dart';
 import '../main/main_layout_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -49,9 +50,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     }
   }
 
-  void _finishOnboarding() {
-    // TODO: Save to SharedPreferences/Database
-    // print('User: $_userName, Dest: $_destination, Date: $_travelDate, Goal: $_goalAmount, Currencies: $_monitoredCurrencies');
+  Future<void> _finishOnboarding() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('onboarding_completed', true);
+    
+    if (!mounted) return;
     
     Navigator.of(context).pushAndRemoveUntil(
       PageRouteBuilder(
