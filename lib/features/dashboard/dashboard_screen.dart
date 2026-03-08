@@ -2,16 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:provider/provider.dart';
+
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/animated_astro_rocket.dart';
+import '../../core/providers/journey_provider.dart';
+import 'widgets/add_transaction_modal.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<JourneyProvider>();
+
     return Scaffold(
       backgroundColor: AppColors.backgroundDark,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            builder: (context) => const AddTransactionModal(),
+          );
+        },
+        backgroundColor: AppColors.neonBlue,
+        child: const Icon(Icons.add_rounded, color: AppColors.backgroundDark, size: 28),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -40,7 +59,7 @@ class DashboardScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('Welcome back,', style: GoogleFonts.inter(color: Colors.white54, fontSize: 12)),
-                          Text('Traveler!', style: GoogleFonts.inter(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                          Text(provider.userName, style: GoogleFonts.inter(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
                         ],
                       ),
                     ],
@@ -148,14 +167,14 @@ class DashboardScreen extends StatelessWidget {
                                   RichText(
                                     text: TextSpan(
                                       children: [
-                                        TextSpan(text: '\$4,250 ', style: GoogleFonts.inter(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
-                                        TextSpan(text: '/ \$12,000', style: GoogleFonts.inter(color: Colors.white54, fontSize: 14)),
+                                        TextSpan(text: '\$${provider.totalSaved.toStringAsFixed(2)} ', style: GoogleFonts.inter(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+                                        TextSpan(text: '/ \$${provider.goalAmount.toStringAsFixed(2)}', style: GoogleFonts.inter(color: Colors.white54, fontSize: 14)),
                                       ],
                                     ),
                                   ),
                                 ],
                               ),
-                              Text('35%', style: GoogleFonts.inter(color: AppColors.neonBlue, fontSize: 18, fontWeight: FontWeight.bold)),
+                              Text('${(provider.progressPercentage * 100).toStringAsFixed(1)}%', style: GoogleFonts.inter(color: AppColors.neonBlue, fontSize: 18, fontWeight: FontWeight.bold)),
                             ],
                           ),
                           const SizedBox(height: 16),
@@ -168,7 +187,7 @@ class DashboardScreen extends StatelessWidget {
                             ),
                             child: FractionallySizedBox(
                               alignment: Alignment.centerLeft,
-                              widthFactor: 0.35,
+                              widthFactor: provider.progressPercentage,
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: AppColors.neonBlue,
@@ -200,7 +219,7 @@ class DashboardScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _buildTimeBlock('120', 'Days'),
+                        _buildTimeBlock('${provider.daysRemaining}', 'Days'),
                         _buildTimeBlock('00', 'Hrs'),
                         _buildTimeBlock('00', 'Min'),
                         _buildTimeBlock('00', 'Sec'),
@@ -211,7 +230,7 @@ class DashboardScreen extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Remaining until Canadá 🇨🇦',
+                        'Remaining until ${provider.destination}',
                         style: GoogleFonts.inter(color: Colors.white54, fontSize: 12),
                       ),
                     ).animate().fadeIn(delay: 400.ms),

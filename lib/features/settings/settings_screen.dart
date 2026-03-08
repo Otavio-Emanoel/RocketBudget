@@ -3,12 +3,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../core/theme/app_colors.dart';
+import '../../core/providers/journey_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
+import 'widgets/edit_journey_modal.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<JourneyProvider>();
+
     return Scaffold(
       backgroundColor: AppColors.backgroundDark,
       body: SafeArea(
@@ -94,9 +100,9 @@ class SettingsScreen extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Commander Alex', style: GoogleFonts.inter(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+                                    Text(provider.userName, style: GoogleFonts.inter(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
                                     const SizedBox(height: 4),
-                                    Text('alex@rocketbudget.space', style: GoogleFonts.inter(color: const Color(0xFF94a3b8), fontSize: 14, fontWeight: FontWeight.w500)),
+                                    Text('Membro Inicial', style: GoogleFonts.inter(color: const Color(0xFF94a3b8), fontSize: 14, fontWeight: FontWeight.w500)),
                                     const SizedBox(height: 8),
                                     Container(
                                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -160,16 +166,32 @@ class SettingsScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Icon(Icons.rocket_launch_rounded, color: AppColors.neonBlue, size: 20),
-                                    const SizedBox(width: 8),
-                                    Text('Journey Setup', style: GoogleFonts.inter(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                                    Row(
+                                      children: [
+                                        const Icon(Icons.rocket_launch_rounded, color: AppColors.neonBlue, size: 20),
+                                        const SizedBox(width: 8),
+                                        Text('Journey Setup', style: GoogleFonts.inter(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                                      ],
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.edit_rounded, color: AppColors.neonBlue, size: 20),
+                                      onPressed: () {
+                                        showModalBottomSheet(
+                                          context: context,
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          builder: (ctx) => const EditJourneyModal(),
+                                        );
+                                      },
+                                    ),
                                   ],
                                 ),
-                                const SizedBox(height: 20),
-                                _buildJourneyRow(Icons.calendar_month_rounded, 'TRIP DATE', 'Oct 12 - Oct 20, 2024'),
-                                _buildJourneyRow(Icons.location_on_rounded, 'DESTINATION', 'Mars Colony Prime'),
-                                _buildJourneyRow(Icons.savings_rounded, 'TARGET GOAL', '\$25,000.00 Credits'),
+                                const SizedBox(height: 12),
+                                _buildJourneyRow(Icons.calendar_month_rounded, 'TRIP DATE', DateFormat('MMM dd, yyyy').format(provider.targetDate)),
+                                _buildJourneyRow(Icons.location_on_rounded, 'DESTINATION', provider.destination),
+                                _buildJourneyRow(Icons.savings_rounded, 'TARGET GOAL', '\$${provider.goalAmount.toStringAsFixed(2)}'),
                               ],
                             ),
                           ),

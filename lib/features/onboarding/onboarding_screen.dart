@@ -8,6 +8,8 @@ import 'steps/step_destination.dart';
 import 'steps/step_name.dart';
 import '../main/main_layout_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import '../../core/providers/journey_provider.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -51,8 +53,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   Future<void> _finishOnboarding() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('onboarding_completed', true);
+    if (!mounted) return;
+    final journeyProvider = Provider.of<JourneyProvider>(context, listen: false);
+    
+    await journeyProvider.saveOnboardingData(
+      name: _userName.isNotEmpty ? _userName : 'Traveler',
+      destination: _destination.isNotEmpty ? _destination : 'Canadá',
+      dateGoal: _travelDate ?? DateTime.now().add(const Duration(days: 365)),
+      goalAmount: _goalAmount > 0 ? _goalAmount : 15000.0,
+      currencies: _monitoredCurrencies.isNotEmpty ? _monitoredCurrencies : ['CAD'],
+    );
     
     if (!mounted) return;
     

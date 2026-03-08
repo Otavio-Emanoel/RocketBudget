@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
+
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/animated_astro_rocket.dart';
+import '../../core/providers/journey_provider.dart';
 
 class HistoryScreen extends StatelessWidget {
   const HistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<JourneyProvider>();
+
     return Scaffold(
       backgroundColor: AppColors.backgroundDark,
       body: SafeArea(
@@ -147,9 +153,9 @@ class HistoryScreen extends StatelessWidget {
                           const SizedBox(height: 16),
                           Row(
                             children: [
-                              _buildBreakdownCard('TOTAL INCOME', '\$5,240.00', '+12%', true),
+                              _buildBreakdownCard('TOTAL SAVED', '\$${provider.totalSaved.toStringAsFixed(2)}', 'Guardado', true),
                               const SizedBox(width: 16),
-                              _buildBreakdownCard('TOTAL SAVINGS', '\$1,120.50', '+5.2%', true),
+                              _buildBreakdownCard('TARGET GOAL', '\$${provider.goalAmount.toStringAsFixed(2)}', 'Meta', true),
                             ],
                           ),
                         ],
@@ -169,10 +175,26 @@ class HistoryScreen extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 16),
-                          _buildTransactionItem('Monthly Salary', 'Oct 28 • Rocket Corp', '+\$4,500.00', Icons.payments_rounded, Colors.green),
-                          _buildTransactionItem('Freelance Project', 'Oct 25 • UI Design System', '+\$620.00', Icons.code_rounded, AppColors.neonBlue),
-                          _buildTransactionItem('Birthday Gift', 'Oct 22 • From Family', '+\$120.00', Icons.card_giftcard_rounded, Colors.purpleAccent),
-                          _buildTransactionItem('Market Groceries', 'Oct 20 • Fresh Mart', '-\$84.20', Icons.shopping_cart_rounded, Colors.redAccent, isExpense: true),
+                          if (provider.transactions.isEmpty)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 24.0),
+                              child: Text('Nenhuma transação ainda. Guarde seu primeiro valor!', 
+                                style: GoogleFonts.inter(color: Colors.white54, fontStyle: FontStyle.italic)),
+                            )
+                          else
+                            ...provider.transactions.map((tx) {
+                              return _buildTransactionItem(
+                                tx.title,
+                                '${DateFormat('MMM dd').format(tx.date)} • ${tx.category.toUpperCase()}',
+                                '${tx.isExpense ? '-' : '+'}\$${tx.amount.toStringAsFixed(2)}',
+                                tx.category == 'salary' ? Icons.work_rounded : 
+                                tx.category == 'freelance' ? Icons.computer_rounded : 
+                                tx.category == 'raffle' ? Icons.confirmation_num_rounded :
+                                tx.category == 'gift' ? Icons.card_giftcard_rounded : Icons.category_rounded,
+                                tx.isExpense ? Colors.redAccent : (tx.category == 'salary' ? Colors.green : AppColors.neonBlue),
+                                isExpense: tx.isExpense,
+                              );
+                            }),
                         ],
                       ).animate().fadeIn(delay: 700.ms),
                     ),

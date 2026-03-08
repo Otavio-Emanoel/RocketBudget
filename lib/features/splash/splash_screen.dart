@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 import '../welcome/welcome_screen.dart';
 import '../main/main_layout_screen.dart';
 import '../../core/widgets/animated_astro_rocket.dart';
+import '../../core/providers/journey_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -27,6 +29,11 @@ class _SplashScreenState extends State<SplashScreen> {
     // Simulate loading time (e.g. 5 seconds for full progress effect)
     await Future.delayed(const Duration(seconds: 4));
     
+    // Retrieve the provider and initialize it
+    if (!mounted) return;
+    final journeyProvider = Provider.of<JourneyProvider>(context, listen: false);
+    await journeyProvider.init();
+
     final prefs = await SharedPreferences.getInstance();
     final bool completedOnboarding = prefs.getBool('onboarding_completed') ?? false;
 
