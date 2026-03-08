@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/widgets/animated_astro_rocket.dart';
 
 class HistoryScreen extends StatelessWidget {
   const HistoryScreen({super.key});
@@ -123,17 +125,8 @@ class HistoryScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            // Astro Trophy Image placeholder
-                            Container(
-                              width: 100,
-                              height: 100,
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                  image: NetworkImage('https://lh3.googleusercontent.com/aida-public/AB6AXuBNY6aVWfMmKDWX6vKe4__ws_bGeH3qHqCFkukXpq74LxGEFPnZFt-Qjcku07Nls0a90BFEv-5pakFqkVi4MOJkEQODSRDNTL78USTd4xdZ187BqPl-OmjR3O8iHW10m5JPlFk1Z3YuNqvg1JnWwMAkdE49hoz4n8IarMdhQBq0gPluCTMy0esXsueu97kVJg-yb9llZ2cGcaf81bNjZQrNan7gqRgM2JJoNfoXRTBqIv0i15g4R005inC40-dXAENADo-KjdTkm15K'),
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ).animate().scale(delay: 500.ms, curve: Curves.easeOutBack),
+                            // Astro Custom Rocket
+                            const AnimatedAstroRocket(size: 100).animate().scale(delay: 500.ms, curve: Curves.easeOutBack),
                           ],
                         ),
                       ),

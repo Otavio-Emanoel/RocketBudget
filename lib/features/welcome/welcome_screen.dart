@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../core/theme/app_colors.dart';
+import '../../core/widgets/animated_astro_rocket.dart';
 import '../onboarding/onboarding_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -92,14 +93,7 @@ class WelcomeScreen extends StatelessWidget {
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
-                              Image.asset(
-                                'assets/images/astro_3d.png',
-                                width: 220,
-                                height: 220,
-                                fit: BoxFit.contain,
-                              )
-                                  .animate(onPlay: (c) => c.repeat(reverse: true))
-                                  .moveY(begin: -8, end: 8, duration: 3.seconds, curve: Curves.easeInOut),
+                              const AnimatedAstroRocket(size: 220),
                             ],
                           ),
                         ),

@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../core/widgets/animated_astro_rocket.dart';
 
 class StepName extends StatefulWidget {
   final ValueChanged<String> onNameChanged;
@@ -49,10 +50,7 @@ class _StepNameState extends State<StepName> {
                 width: 250,
                 height: 250,
                 color: Colors.white, // In the mockup, the astronaut has a white/light gray background block. But we'll use a clean dark container to fit our theme better, or just show the transparent PNG.
-                child: Image.asset(
-                  'assets/images/astro_3d.png',
-                  fit: BoxFit.contain,
-                ).animate(onPlay: (c) => c.repeat(reverse: true)).moveY(begin: -5, end: 5, duration: 2.seconds),
+                child: const AnimatedAstroRocket(size: 250),
               ),
             ),
             

@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../core/theme/app_colors.dart';
+import '../../core/widgets/animated_astro_rocket.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -94,12 +95,7 @@ class DashboardScreen extends StatelessWidget {
                             ),
                           ),
                           // Astro Image
-                          Image.asset(
-                            'assets/images/astro_3d.png',
-                            width: 180,
-                            height: 180,
-                            fit: BoxFit.contain,
-                          ).animate(onPlay: (c) => c.repeat(reverse: true)).moveY(begin: -8, end: 8, duration: 4.seconds, curve: Curves.easeInOut),
+                          const AnimatedAstroRocket(size: 180),
                           
                           // Badge
                           Positioned(

@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'dart:math';
 
 import '../../core/theme/app_colors.dart';
+import '../../core/widgets/animated_astro_rocket.dart';
 
 class RadarScreen extends StatelessWidget {
   const RadarScreen({super.key});
@@ -81,16 +82,7 @@ class RadarScreen extends StatelessWidget {
                       ),
                       child: Row(
                         children: [
-                          Container(
-                            width: 80,
-                            height: 80,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage('https://lh3.googleusercontent.com/aida-public/AB6AXuAopKwfZ51MibVLm6qq43FE9Murp76WHwbv96Tqo22AlGnmCEbhRin4YWI2W91Yf19zyZGkqRRZX9Zd8VJ9GwywPat82wJjLAo047xW-9L6IYOi7AZt79WU2H2XwC4M9xcuqtsWa8hGewfO_a3AbHJKpo0RVEEdBqMbrqSjKRDdtk12F12ICIPgK5um5ct8g1RXm19Mbv4JbV-Nq3d9fJhCVWKhOo4J3-MFIicoTo_A6bOcse3KBwdJIvhYohKv3bmyHcuSYJ-tlYuZ'),
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ).animate(onPlay: (c) => c.repeat(reverse: true)).moveY(begin: -4, end: 4, duration: 2.seconds),
+                          const AnimatedAstroRocket(size: 80),
                           const SizedBox(width: 16),
                           Expanded(
                             child: Column(

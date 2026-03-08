@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../welcome/welcome_screen.dart';
 import '../main/main_layout_screen.dart';
+import '../../core/widgets/animated_astro_rocket.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -122,12 +123,7 @@ class _SplashScreenState extends State<SplashScreen> {
                                 ),
                               ),
                               // Rocket image
-                              Image.asset(
-                                'assets/images/astro_3d.png',
-                                fit: BoxFit.contain,
-                              )
-                                  .animate(onPlay: (c) => c.repeat(reverse: true))
-                                  .moveY(begin: -15, end: 15, duration: 2500.ms, curve: Curves.easeInOutSine),
+                              const AnimatedAstroRocket(size: 260),
                             ],
                           ),
                         ),
