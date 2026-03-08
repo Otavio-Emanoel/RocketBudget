@@ -6,6 +6,7 @@ import 'steps/step_currencies.dart';
 import 'steps/step_date_goal.dart';
 import 'steps/step_destination.dart';
 import 'steps/step_name.dart';
+import '../main/main_layout_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -51,7 +52,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void _finishOnboarding() {
     // TODO: Save to SharedPreferences/Database
     // print('User: $_userName, Dest: $_destination, Date: $_travelDate, Goal: $_goalAmount, Currencies: $_monitoredCurrencies');
-    // TODO: Route to Dashboard
+    
+    Navigator.of(context).pushAndRemoveUntil(
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 600),
+        pageBuilder: (_, __, ___) => const MainLayoutScreen(),
+        transitionsBuilder: (_, animation, __, child) {
+          return FadeTransition(opacity: animation, child: child);
+        },
+      ),
+      (route) => false, // Remove all previous routes
+    );
   }
 
   @override
